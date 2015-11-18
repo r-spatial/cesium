@@ -19,17 +19,20 @@ HTMLWidgets.widget({
         geocoder: false,
         homeButton: false,
         infoBox: false,
-        sceneModePicker: false,
+        sceneModePicker: true,
         selectionIndicator: false,
         timeline: false,
         navigationHelpButton: false,
         navigationInstructionsInitiallyVisible: false,
-        scene3DOnly: true,
+        scene3DOnly: false,
         skyBox: new Cesium.SkyBox({ show: false }),
         skyAtmosphere: false,
-        sceneMode: Cesium.SceneMode.SCENE2D,
-        imageryProvider: new Cesium.OpenStreetMapImageryProvider(),
-        targetFrameRate: 1,
+        sceneMode: Cesium.SceneMode.SCENE3D,
+        imageryProvider: new Cesium.BingMapsImageryProvider({
+    url : '//dev.virtualearth.net',
+    mapStyle : Cesium.BingMapsStyle.AERIAL
+}),
+        targetFrameRate: 100,
         orderIndependentTranslucency: false,
         contextOptions: {
                           webgl : {
