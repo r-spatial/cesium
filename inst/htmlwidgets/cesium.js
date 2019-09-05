@@ -29,9 +29,10 @@ HTMLWidgets.widget({
         skyAtmosphere: false,
         sceneMode: Cesium.SceneMode.SCENE3D,
         imageryProvider: new Cesium.BingMapsImageryProvider({
-    url : '//dev.virtualearth.net',
-    mapStyle : Cesium.BingMapsStyle.AERIAL
-}),
+            url : '//dev.virtualearth.net',
+            key: "AmQpyJ0dJni-9bvaRNx_7CHPxbx4BS951EdUOv1-qmkE-DDDX_e8W6F1GRuEK3Ya",
+            mapStyle : Cesium.BingMapsStyle.AERIAL
+        }),
         targetFrameRate: 100,
         orderIndependentTranslucency: false,
         contextOptions: {
