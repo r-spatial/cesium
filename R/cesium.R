@@ -29,7 +29,7 @@ cesium <- function(data = NULL, width = NULL, height = NULL,
                    elementId = NULL,
                    sizingPolicy = cesiumSizingPolicy(padding = padding)) {
 
-  map <- htmlwidgets::createWidget(
+  globe <- htmlwidgets::createWidget(
     "cesium",
     structure(
       list(options = options,
@@ -59,10 +59,10 @@ cesium <- function(data = NULL, width = NULL, height = NULL,
   )
 
   if (crosstalk::is.SharedData(data)) {
-    map <- addSelect(map)
+    globe <- addSelect(globe)
   }
 
-  map
+  globe
 }
 
 
@@ -128,12 +128,12 @@ cesiumSizingPolicy <- function(defaultWidth = "100%",
 }
 
 hookWrapperTemplate <- "function(el, x, data) {
-  return (%s).call(this.getMap(), el, x, data);
+  return (%s).call(this.getglobe(), el, x, data);
 }"
 
 
-getMapData <- function(map) {
-  attr(map$x, "cesiumData", exact = TRUE)
+getglobeData <- function(globe) {
+  attr(globe$x, "cesiumData", exact = TRUE)
 }
 
 
