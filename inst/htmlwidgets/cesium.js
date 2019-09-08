@@ -12,50 +12,36 @@ HTMLWidgets.widget({
 
   renderValue: function(el, x, instance) {
 
-    var osm = Cesium.createOpenStreetMapImageryProvider({
-        url : 'https://a.tile.openstreetmap.org/'
-    });
+    if (x.options.imageryProvider === undefined) {
+        var osm = Cesium.createOpenStreetMapImageryProvider({
+            url : 'https://a.tile.openstreetmap.org/'
+        });
+        x.options.imageryProvider = osm;
+    }
 
-    var options = {
-        animation: false,
-        baseLayerPicker: false,
-        fullscreenButton: false,
-        geocoder: false,
-        homeButton: true,
-        infoBox: false,
-        sceneModePicker: true,
-        selectionIndicator: false,
-        timeline: true,
-        navigationHelpButton: false,
-        navigationInstructionsInitiallyVisible: false,
-        scene3DOnly: false,
-        skyBox: new Cesium.SkyBox({ show: false }),
-        skyAtmosphere: false,
-        sceneMode: Cesium.SceneMode.SCENE3D,
-        imageryProvider: osm,
-        /*new Cesium.BingMapsImageryProvider({
-            url : '//dev.virtualearth.net',
-            key: "AmQpyJ0dJni-9bvaRNx_7CHPxbx4BS951EdUOv1-qmkE-DDDX_e8W6F1GRuEK3Ya",
-            mapStyle : Cesium.BingMapsStyle.AERIAL
-        }),*/
-        targetFrameRate: 100,
-        orderIndependentTranslucency: false,
-        contextOptions: {
-                          webgl : {
-                                    alpha : false,
-                                    depth : false,
-                                    stencil : false,
-                                    antialias : false,
-                                    premultipliedAlpha : true,
-                                    preserveDrawingBuffer : false,
-                                    failIfMajorPerformanceCaveat : false
-                                  },
-                          allowTextureFilterAnisotropic : false
-                        },
-        projectionPicker: true
-    };
-
+    var options = x.options;
     var cesiumWidget = new Cesium.Viewer(el.id, options);
+
+    // this section is just for poc to load data!! delete once
+    // proper add* functions have been created
+    var promise = Cesium.GeoJsonDataSource.load(x.cesiumData, {
+        stroke: Cesium.Color.BLACK.withAlpha(0.9),
+        fill: Cesium.Color.BLUE.withAlpha(0.6),
+        strokeWidth: 3
+    });
+    promise.then(function(dataSource) {
+        cesiumWidget.dataSources.add(dataSource);
+        var entities = dataSource.entities.values;
+        for (var i = 0; i < entities.length; i++) {
+            var entity = entities[i];
+            entity.billboard = undefined;
+            entity.point = new Cesium.PointGraphics({
+                color: Cesium.Color.BLUE.withAlpha(0.8),
+                pixelSize: 10
+            });
+        }
+        cesiumWidget.zoomTo(dataSource, new Cesium.HeadingPitchRange(0, -90, 0));
+    });
 
   },
 
