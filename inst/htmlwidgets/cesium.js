@@ -20,6 +20,7 @@ HTMLWidgets.widget({
     }
 
     var options = x.options;
+
     var cesiumWidget = new Cesium.Viewer(el.id, options);
 
     // this section is just for poc to load data!! delete once

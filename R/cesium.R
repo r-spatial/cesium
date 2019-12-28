@@ -33,7 +33,7 @@ cesium <- function(data = NULL, width = NULL, height = NULL,
     "cesium",
     structure(
       list(options = options,
-           ## cesiumData withing this list needs to be deleted
+           ## cesiumData within this list needs to be deleted
            ## once we have proper add* functions
            cesiumData = data),
       cesiumData = data
@@ -64,7 +64,6 @@ cesium <- function(data = NULL, width = NULL, height = NULL,
 
   globe
 }
-
 
 cesiumOptions <- function(animation = FALSE,
                           baseLayerPicker = FALSE,
